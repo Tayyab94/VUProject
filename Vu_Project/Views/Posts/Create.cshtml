@@ -1,0 +1,97 @@
+﻿@model Vu_Project.Models.PostViewModel.PostVM
+
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { id = "PostForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+   
+
+    <div id="page-wrapper" class="sign-in-wrapper">
+        <div class="graphs">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="sign-up">
+                <h1>Create Post</h1>
+
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4 style="margin-top:-1px">Category Id</h4>
+                    </div>
+                    <div class="sign-up2">
+
+                        @Html.DropDownListFor(x => x.Category_Id, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4 style="margin-bottom:-1px">  @Html.LabelFor(model => model.Name)</h4>
+                    </div>
+                    <div class="sign-up2">
+                        @Html.EditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4 style="margin-bottom:-1px">Site Link</h4>
+                    </div>
+                    <div class="sign-up2">
+
+
+                        @Html.EditorFor(model => model.WebUrl,new {placeholder="www.google.com" })
+                        @Html.ValidationMessageFor(model => model.WebUrl, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <div class="sign-u">
+                    <div class="sign-up1">
+                        <h4 style="margin-top:-1px"> @Html.LabelFor(model => model.Description)</h4>
+                    </div>
+                    <div class="sign-up2">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.WebUrl, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+
+                <div class="sign-u" style="margin-top:10px">
+                    <div class="sign-up1">
+                        <h4 style="margin-top:-1px">Company Image</h4>
+                    </div>
+                    <div class="sign-up2">
+                        <input type="file" id="file1" name="photo" class="form-control" />
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+             
+
+                <div class="sub_home">
+                    <div class="sub_home_left">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                    <div class="sub_home_right">
+                        <p>Go Back to <a href="@Url.Action("Index","Home")">Home</a></p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

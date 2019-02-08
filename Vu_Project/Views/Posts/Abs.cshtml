@@ -1,0 +1,79 @@
+﻿@model Vu_Project.Models.PostViewModel.AbC
+@{
+    ViewBag.Title = "Abs";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="page-wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Search</h4>
+                <div class="d-flex align-items-center">
+
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+                <div class="d-flex no-block justify-content-end align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Admin</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Search</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+        
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Search Item</h4>
+                            <form class="m-t-20" method="get" action="@Url.Action("Abs","Posts")">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="name" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-danger" type="submit"><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+           
+            </div>
+            @if (Model != null)
+            {
+
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title text-center">Company's Name</h4>
+                        </div>
+                        <div class="card-body">
+                           
+                            <h4>@Model.post.Name</h4>
+                            <p class="right"><strong>Total Clicks (@Model.Count)</strong></p>
+                          
+                        </div>
+                        <div class="card-footer">
+                            <p style="float:right">Posted Date: <b>@Model.post.PostDate.ToShortDateString()</b></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

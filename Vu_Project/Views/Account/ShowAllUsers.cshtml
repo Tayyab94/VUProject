@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Vu_Project.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "ShowAllUsers";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section CustomStyle
+{
+    <!-- This page plugin CSS -->
+    <link href="~/web/AdminTemplate/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+}
+
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title">User's List</h4>
+                    <div class="d-flex align-items-center">
+
+                    </div>
+                </div>
+                <div class="col-7 align-self-center">
+                    <div class="d-flex no-block justify-content-end align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">UserList</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (Model != null)
+        {
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="zero_config" class="table table-striped table-bordered table-hover table-info">
+                                        <thead class="bg-info text-white">
+                                            <tr>
+
+                                                <th>Id</th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.UserName)
+                                                </th>
+
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.Address)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.Email)
+                                                </th>
+
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Id)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.UserName)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Address)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Email)
+                                                    </td>
+
+                                                    <td class="btn btn-group">
+                                                        @Html.ActionLink("Delete", "DelUser", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <h2 class="text-danger text-center">No User is Found</h2>
+        }
+
+
+    </div>
+
+
+
+
+@section CustomScripts{
+
+    <script src="~/web/AdminTemplate/assets/extra-libs/DataTables/datatables.min.js"></script>
+
+    <script src="~/web/AdminTemplate/dist/js/pages/datatable/datatable-basic.init.js"></script>
+
+
+}

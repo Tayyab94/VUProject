@@ -1,0 +1,80 @@
+﻿@model Vu_Project.Models.PostViewModel.HomeVm
+
+@{
+    ViewBag.Title = "Home Page";
+    string defaultImg="/Images/dummy.png";
+
+
+    string cc =Convert.ToInt32(Model.CategoriesList.Count().ToString()) <= 6 ? "col-lg-offset-1" : string.Empty;
+}
+<div class="content">
+
+    <div class="categories">
+        <div class="container">
+
+
+            @foreach (var cat in Model.CategoriesList)
+            {
+                <div class="col-md-2 focus-grid @cc">
+                    <a href="@Url.Action("DetailCategory","Category",new { id=cat.Id})">
+                        <div class="focus-border">
+                            <div class="focus-layout">
+                                @if (string.IsNullOrEmpty(cat.ImgUrl))
+                                {
+                                    <div class="focus-image"><img src="@defaultImg" class="img-circle" style="width:100px" /></div>
+                                }
+                                else
+                                {
+                                    <div class="focus-image"><img  src="@Url.Content(cat.ImgUrl)" class="img-circle" style="width:100px" /></div>
+                                }
+                                <h4 class="clrchg">@cat.Name</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+
+
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="trending-ads">
+        <div class="container">
+            <!-- slider -->
+            <div class="trend-ads">
+                <h2>Trending Ads</h2>
+                @{
+                    Html.RenderAction("ShowPost", "Home");
+
+                }
+
+            </div>
+        </div>
+        <!-- //slider -->
+    </div>
+
+    <div class="mobile-app">
+        <div class="container">
+            <div class="col-md-5 app-left">
+                <a href="mobileapp.html"><img src="~/Content/images/app.png" alt=""></a>
+            </div>
+            <div class="col-md-7 app-right">
+                <h3>Resale App is the <span>Easiest</span> way for Selling and buying second-hand goods</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor Sed bibendum varius euismod. Integer eget turpis sit amet lorem rutrum ullamcorper sed sed dui. vestibulum odio at elementum. Suspendisse et condimentum nibh.</p>
+                <div class="app-buttons">
+                    <div class="app-button">
+                        <a href="#"><img src="~/Content/images/1.png" alt=""></a>
+                    </div>
+                    <div class="app-button">
+                        <a href="#"><img src="~/Content/images/2.png" alt=""></a>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+

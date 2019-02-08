@@ -1,0 +1,99 @@
+﻿@model Vu_Project.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="single-page main-grid-border">
+    <div class="container">
+        <div class="product-desc">
+            <div class="col-md-7 product-view">
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <h2>@Model.Description  </h2>
+                }
+
+                <p> <i class="glyphicon glyphicon-time"></i>| Added at @Model.PostDate.ToShortDateString() Ad ID: @Model.Id</p>
+                <div class="flexslider">
+                    <img src="@Url.Content(Model.ImgUrl)" />
+                 
+                </div>
+                <!-- FlexSlider -->
+                <script defer src="~/Content/js/jquery.flexslider.js"></script>
+                <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen" />
+
+                <script>
+                    // Can also be used with $(document).ready()
+                    $(window).load(function () {
+                        $('.flexslider').flexslider({
+                            animation: "slide",
+                            controlNav: "thumbnails"
+                        });
+                    });
+                </script>
+                <!-- //FlexSlider -->
+                <div class="product-details">
+                    <h4>Brand : <a href="#">@Model.Name</a></h4>
+                    <h4>Views : <strong>150</strong></h4>
+                    <p><strong>Display </strong>: 1.5 inch HD LCD Touch Screen</p>
+                    <p>
+                        <strong>Summary</strong> : @if (!string.IsNullOrEmpty(Model.Description))
+                        {<text>
+                                @Model.Description
+                        </text>}.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-md-5 product-details-grid">
+                <div class="item-price">
+                    <div class="product-price">
+                        <p class="p-price">Category</p>
+                        <h3 class="rate">@Model.Category.Name</h3>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="condition">
+                        <p class="p-price">Name</p>
+                        <h4>@Model.Name</h4>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="itemtype">
+                        <p class="p-price">Web site</p>
+                        <button type="button" data-id="@Model.Id" class="bWebSite btn btn-info">Web</button>
+                        @*<a href="http://@Model.WebUrl">Website</a>*@
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--//single-page-->
+
+<script type="text/javascript">
+
+    $(".bWebSite").click(function () {
+
+        var confirmationMSG = confirm("Are u Suer ");
+                if (confirmationMSG) {
+            //window.location.href = "http://www.google.com";
+            $.ajax(
+                {
+                    url: "@Url.Action("VisitWebSite", "Posts")",
+                    data: { id: $(this).data("id") },
+                    success: function (reuslt) {
+
+                        window.location.href="http://"+reuslt;
+                    },
+                    error: function () {
+
+                    }
+
+            });
+        }
+
+    });
+</script>

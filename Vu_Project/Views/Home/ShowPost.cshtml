@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Vu_Project.Models.Post>
+
+
+
+<div class="nbs-flexiel-container">
+    <div class="nbs-flexisel-inner">
+        <ul id="flexiselDemo3" class="nbs-flexisel-ul" style="left: -1026px;">
+            @{ int j = 0; int itemGroupSize = 4;
+                int itemCount = 0;
+
+                var prodList = Model.ToList();
+                var itemSize = 4;
+                var itemNo = 1;
+
+                int totalItems = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(prodList.Count) / itemSize));
+
+            }
+
+            @while (itemNo != totalItems)
+            {
+                var items = prodList.Skip((itemNo - 1) * itemSize).Take(itemSize).ToList();
+
+                <li class="nbs-flexisel-item" style="width: 1026px;">
+                    @foreach (var post in items)
+                    {
+                        j++;
+                        var active = j == 1 ? "active" : "";
+
+
+                        <div class="col-md-3 biseller-column @active">
+                            <a href="@Url.Action("Details","Posts",new {id=post.Id })">
+                                <img src="@post.ImgUrl" class="img-responsive" style="max-height:226px; min-height:226px;" />
+                            </a> @*<span class="price"> <input type="button" class="price btn btn-primary bWebSite" value="Send"/></span>*@
+
+                            <div class="ad-info">
+                                <h5>@post.Name</h5>
+                                <span>@DateTime.Now</span>
+                                <input type="button" class="btn btn-info bWebSite" data-id="@post.Id" value="WebSite" />
+                            </div>
+                        </div>
+                    }
+                </li>
+
+                itemNo++;
+            }
+
+            // chala k dekho
+
+        </ul>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(".bWebSite").click(function () {
+
+        var confirmationMSG = confirm("Are u Suer ");
+
+
+        if (confirmationMSG) {
+            //window.location.href = "http://www.google.com";
+            $.ajax(
+                {
+                    url: "@Url.Action("VisitWebSite", "Posts")",
+                    data: { id: $(this).data("id") },
+                    success: function (reuslt) {
+                  
+                        window.location.href="http://"+reuslt;
+                    },
+                    error: function () {
+
+                    }
+
+            });
+        }
+
+    });
+
+
+
+    $(window).load(function () {
+        $("#flexiselDemo3").flexisel({
+            visibleItems: 1,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 5000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 1
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 1
+                }
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript" src="~/Content/js/jquery.flexisel.js"></script>

@@ -1,0 +1,96 @@
+﻿@model Vu_Project.Models.Category
+
+@using Vu_Project.Models;
+
+
+@{
+    ViewBag.Title = "DetailCategory";
+    ApplicationDbContext dbContext = new ApplicationDbContext();
+    var listcat = dbContext.Categories.ToList();
+}
+<link rel="stylesheet" type="text/css" href="~/Content/css/easy-responsive-tabs.css " />
+<script src="~/Content/js/easyResponsiveTabs.js"></script>
+<!-- Categories -->
+<!--Vertical Tab-->
+
+    <div class="categories-section main-grid-border">
+        <div class="container">
+            <h2 class="head">Main Categories</h2>
+            <div class="category-list">
+                <div id="parentVerticalTab">
+
+                    <ul class="resp-tabs-list hor_1" style="margin-top: 3px;">
+
+                        @foreach (var cat in listcat)
+                        {
+                           // string newClass = cat.Id == Model.Id ? "resp-tab-active" : string.Empty;
+
+                            <li class=" resp-tab-item hor_1" aria-controls="hor_1_tab_item-0" role="tab" style="background-color: white; border-color: rgb(193, 193, 193);">@cat.Name</li>
+                        }
+                       
+                        <a href="all-classifieds.html">All Ads</a>
+                    </ul>
+                    <div class="resp-tabs-container hor_1" style="border-color: rgb(193, 193, 193);">
+                        <span class="active total" style="display:block;" data-toggle="modal" data-target="#myModal"><strong>All Pakistani</strong> (Multinational ads)</span>
+
+                        @foreach (var catr in listcat)
+                        {
+                           // string newClass = catr.Id == Model.Id ? "resp-tab-active" : string.Empty;
+                           // string newClass1 = catr.Id == Model.Id ? "resp-tab-content-active" : string.Empty;
+
+                            <h2 class="resp-accordion hor_1 " role="tab" aria-controls="hor_1_tab_item-0" style="background: none rgb(245, 245, 245); border-color: rgb(193, 193, 193);"><span class="resp-arrow"></span>@catr.Name</h2>
+
+                            <div class="resp-tab-content ho" aria-labelledby="hor_1_tab_item-0">
+                                <div class="category">
+                                    <div class="category-img">
+                                        <img src="@Url.Content(catr.ImgUrl)" title="image" alt="">
+                                    </div>
+                                    <div class="category-info">
+                                        <h4>@catr.Name</h4>
+                                        <span>Total Posts (@catr.Posts.Count)</span>
+                                        <a href="@Url.Action("ShowAllPosts","Posts",new { CataId=catr.Id})">View all Ads</a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="sub-categories">
+                                    <ul>
+                                        <li><a href="mobiles.html">mobile phones</a></li>
+                                        <li><a href="mobiles.html">Tablets</a></li>
+                                        <li><a href="mobiles.html">Accessories</a></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Plug-in Initialisation-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Vertical Tab
+            $('#parentVerticalTab').easyResponsiveTabs({
+                type: 'vertical', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true, // 100% fit in a container
+                closed: 'accordion', // Start closed if in accordion view
+                tabidentify: 'hor_1', // The tab groups identifier
+                activate: function (event) { // Callback function if tab is switched
+                    var $tab = $(this);
+                    var $info = $('#nested-tabInfo2');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+        });
+    </script>
+    <!-- //Categories -->
+

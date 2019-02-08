@@ -1,0 +1,74 @@
+﻿@using Vu_Project.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+<section>
+    <div id="page-wrapper" class="sign-in-wrapper">
+        <div class="graphs">
+            <div class="sign-in-form">
+                <div class="sign-in-form-top">
+                    <h1>Log in</h1>
+                </div>
+                <div class="signin">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="log-input">
+                            <div class="log-input-left">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "user", placeholder = "Your Email" })
+                                @*<input type="text" class="user" value="Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}" />*@
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="log-input">
+                            <div class="log-input-left">
+                                @Html.PasswordFor(m => m.Password,new { @class = "lock", @onfocus = "this.value = '';" , @onblur="if (this.value == '') {this.value = 'Password:';}" })
+                            
+                                @*<input type="password" name="Password" id="Password" class="lock" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" />*@
+                           
+                            </div>
+                            <span class="checkbox2" style="margin-top:-20px">
+                                <label class="checkbox"><input type="checkbox" name="checkbox" id="showHiddenPassword"><i> </i></label>
+                            </span>
+
+                            <div class="clearfix"> </div>
+                        </div>
+                        <input type="submit" value="Log in">
+                        <div class="signin-rit">
+                            <span class="checkbox1">
+                                <label class="checkbox">@Html.CheckBoxFor(m => m.RememberMe) Remember Me?</label>
+                            </span>
+
+                            <div class="clearfix"> </div>
+                        </div>
+                    }
+                </div>
+                <div class="new_people">
+                    <h2>For New People</h2>
+                   <p></p>
+                    <a href="@Url.Action("Register","Account")">Register Now!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("#showHiddenPassword").click(function () {
+                if ($(this).prop("checked")) {
+                    //var pass = $("#Password").val();
+                    $("#Password").attr("type", "text");
+                } else {
+                    $("#Password").attr("type", "password");
+                }
+
+            });
+        });
+    </script>
+}

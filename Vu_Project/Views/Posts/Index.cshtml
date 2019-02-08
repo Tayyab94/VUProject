@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Vu_Project.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section CustomStyle
+{
+    <!-- This page plugin CSS -->
+    <link href="~/web/AdminTemplate/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />*@
+
+}
+
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Post's List</h4>
+                <div class="d-flex align-items-center">
+
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+                <div class="d-flex no-block justify-content-end align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="zero_config" class="table table-striped table-bordered table-hover table-info">
+                                <thead class="bg-info text-white">
+                                    <tr>
+                                        <th>Clicks</th>
+                                        <th>Name</th>
+
+                                        <th>Category Name</th>
+                                        <th>Website</th>
+                                        <th>Image</th>
+
+                                        <th>Actions</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PostVisits.Count)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Category.Name)
+                                            </td>
+                                            <td>
+                                                <a href="http://@item.WebUrl">WebSite</a>
+                                            </td>
+                                            <td>
+                                                <img src="@item.ImgUrl" class="img-thumbnail" width="70" height="80" />
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id },new {@class= "btn btn-primary btn-sm" }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" }) |
+
+
+                                                <a href="/Posts/Delete/@item.Id" class="btn btn-primary btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- order table -->
+        <!-- order table -->
+
+
+    </div>
+</div>
+
+@section CustomScripts{
+
+    <script src="~/web/AdminTemplate/assets/extra-libs/DataTables/datatables.min.js"></script>
+
+    @*<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>*@
+
+    <script src="~/web/AdminTemplate/dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script type="text/javascript">
+
+
+    </script>
+
+}

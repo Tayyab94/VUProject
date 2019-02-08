@@ -1,0 +1,143 @@
+﻿
+@model Vu_Project.Models.PostViewModel.PostGalleryViewModel
+
+
+@{
+    ViewBag.Title = "ShowAllPosts";
+
+
+}
+
+<!-- Products -->
+<div class="total-ads main-grid-border">
+    <div class="container">
+        <div class="select-box">
+            <div class="select-city-for-local-ads ads-list">
+
+            </div>
+            <div class="browse-category ads-list">
+                <label>Browse Categories</label>
+                <form method="get" action="@Url.Action("ShowAllPosts","Posts")">
+                    <select name="sreachProduct" class="selectpicker show-tick" data-live-search="true">
+                        @foreach (var item in Model.FeaturedCatagories)
+                        {
+
+                            <option data-tokens="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                    <button class="btn btn-default btn-group-xs" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="search-product ads-list">
+                <label>Search for a specific product</label>
+                <form class="search" method="get" action="@Url.Action("ShowAllPosts","Posts")">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-lg" placeholder="Buscar" name="sreachProduct" value="@Model.searchITem" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <ol class="breadcrumb" style="margin-bottom: 5px;">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">All Ads</li>
+        </ol>
+        <div class="ads-grid">
+            <div class="side-bar col-md-3">
+                <div class="search-hotel">
+                    <h3 class="sear-head">Name contains</h3>
+                    <form method="get" action="@Url.Action("ShowAllPosts","Posts")">
+                        <input type="text" value="@Model.searchITem" name="sreachProduct" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
+                        <input type="submit" value=" ">
+                    </form>
+                </div>
+            </div>
+            <div class="ads-display col-md-9">
+                <div class="wrapper">
+                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                                    <span class="text">All Ads</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                                <div>
+                                    <div id="container">
+                                        <div class="view-controls-list" id="viewcontrols">
+                                            <label>view :</label>
+
+                                            <a class="listview active"><i class="glyphicon glyphicon-th-list"></i></a>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                        <ul class="list">
+
+                                            @foreach (var post in Model.postList)
+                                            {
+                                                <a href="@Url.Action("Details","Posts",new {id=post.Id })">
+                                                    <li>
+                                                        <img src="@Url.Content(post.ImgUrl)" title="" alt="" />
+                                                        <section class="list-left">
+                                                            <p class="title">@post.Description</p>
+                                                            <span class="adprice">@post.Name $290</span>
+                                                            <p class="catpath">@post.Approaved</p>
+                                                        </section>
+                                                        <section class="list-right">
+                                                            <span class="date">@post.PostDate.ToShortDateString()</span>
+                                                            <span class="cityname">Category(@post.Category.Name)</span>
+                                                        </section>
+                                                        <div class="clearfix"></div>
+                                                    </li>
+                                                </a>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.pager != null && Model.pager.TotalPages > 1)
+                            {
+                                <ul class="pagination pagination-sm">
+
+                                    @if (Model.pager.CurrentPage > 1)
+                                    {
+                                        <li><a href="@Url.Action("ShowAllPosts","Posts",new {pageNo=Model.pager.CurrentPage-1,sreachProduct=Model.searchITem, CataId=Model.cataId})">Prev</a></li>
+                                    }
+
+                                    @for (int page = Model.pager.StartPage; page < Model.pager.EndPage; page++)
+                                    {
+                                        string activeClass = Model.pager.CurrentPage == page ? "active" : string.Empty;
+                                        <li class="@activeClass"><a href="@Url.Action("ShowAllPosts","Posts",new {pageNo=page,sreachProduct=Model.searchITem, CataId=Model.cataId})">@page</a></li>
+                                    }
+
+                                    @if (Model.pager.CurrentPage < Model.pager.TotalPages)
+                                    {
+                                        <li><a href="@Url.Action("ShowAllPosts","Posts",new {pageNo=Model.pager.CurrentPage+1,sreachProduct=Model.searchITem, CataId=Model.cataId})">Next</a></li>
+                                        <li><a href="@Url.Action("ShowAllPosts","Posts",new {pageNo=Model.pager.EndPage,sreachProduct=Model.searchITem, CataId=Model.cataId})">End</a></li>
+                                    }
+
+                                </ul>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- // Products -->

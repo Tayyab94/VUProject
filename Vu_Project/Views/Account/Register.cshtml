@@ -1,0 +1,123 @@
+﻿@model Vu_Project.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+@*<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>
+}*@
+
+
+<section>
+    <div id="page-wrapper" class="sign-in-wrapper">
+        <div class="graphs">
+            <div class="sign-up">
+                <h1>Create an account</h1>
+                <p class="creating">
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                </p>
+                <h2>Personal Information</h2>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="sign-u">
+                        <div class="sign-up1">
+                            <h4>Email Address* :</h4>
+                        </div>
+                        <div class="sign-up2">
+
+
+                            @Html.TextBoxFor(m => m.Email)
+
+                            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="sign-u">
+                        <div class="sign-up1">
+                            <h4>Password* :</h4>
+                        </div>
+                        <div class="sign-up2">
+
+                            @Html.PasswordFor(m => m.Password)
+
+                            @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="sign-u">
+                        <div class="sign-up1">
+                            <h4>Confirm Password* :</h4>
+                        </div>
+                        <div class="sign-up2">
+
+                            @Html.PasswordFor(m => m.ConfirmPassword)
+
+                            @Html.ValidationMessageFor(x => x.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="sign-u">
+                        <div class="sign-up1">
+                            <h4>Address* :</h4>
+                        </div>
+                        <div class="sign-up2">
+
+                            @Html.TextAreaFor(m => m.Address,new { @rows = 4, @cols = 49 })
+
+                            @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="sub_home">
+                        <div class="sub_home_left">
+                            <input type="submit" value="Create">
+                        </div>
+                    </div>
+                }
+                <div class="sub_home">
+                    <div class="sub_home_right">
+                        <p>Go Back to @Html.ActionLink("Home", "Index", "Home")</p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
